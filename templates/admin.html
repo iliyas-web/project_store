@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Admin Panel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1>Admin Panel</h1>
+
+        <a href="/logout" class="btn btn-dark">
+            Logout
+        </a>
+
+    </div>
+
+    <!-- ADD FORM -->
+
+    <div class="card shadow p-4 mb-5">
+
+        <h3 class="mb-4">
+            Add New Project
+        </h3>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <input type="text"
+                   name="title"
+                   class="form-control mb-3"
+                   placeholder="Project Title"
+                   required>
+
+            <textarea name="description"
+                      class="form-control mb-3"
+                      placeholder="Description"
+                      required></textarea>
+
+            <!-- CATEGORY -->
+
+            <select name="category"
+                    class="form-control mb-3"
+                    required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option>AI/ML</option>
+                <option>Python</option>
+                <option>.NET</option>
+                <option>Cyber Security</option>
+                <option>Unity</option>
+                <option>Web Development</option>
+
+            </select>
+
+            <input type="text"
+                   name="tech_stack"
+                   class="form-control mb-3"
+                   placeholder="Tech Stack"
+                   required>
+
+            <input type="number"
+                   name="price"
+                   class="form-control mb-3"
+                   placeholder="Price"
+                   required>
+
+            <input type="file"
+                   name="image"
+                   class="form-control mb-3"
+                   required>
+
+            <button class="btn btn-primary">
+                Add Project
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- PROJECT LIST -->
+
+    <div class="row">
+
+        {% for project in projects %}
+
+        <div class="col-md-4">
+
+            <div class="card shadow mb-4">
+
+                <img src="/{{ project.image }}"
+                     class="card-img-top"
+                     height="220">
+
+                <div class="card-body">
+
+                    <h4>{{ project.title }}</h4>
+
+                    <p class="text-primary">
+                        {{ project.category }}
+                    </p>
+
+                    <p>{{ project.tech_stack }}</p>
+
+                    <h5 class="text-success">
+                        ₹ {{ project.price }}
+                    </h5>
+
+                    <div class="d-flex gap-2 mt-3">
+
+                        <a href="/edit/{{ project.id }}"
+                           class="btn btn-warning">
+                           Edit
+                        </a>
+
+                        <a href="/delete/{{ project.id }}"
+                           class="btn btn-danger">
+                           Delete
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

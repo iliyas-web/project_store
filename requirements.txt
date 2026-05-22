@@ -1,0 +1,4 @@
+Flash
+mysql-connector-python
+gunicorn
+werkzeug

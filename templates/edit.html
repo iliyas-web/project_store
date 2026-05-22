@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Edit Project</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">
+            Edit Project
+        </h2>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <input type="text"
+                   name="title"
+                   class="form-control mb-3"
+                   value="{{ project.title }}"
+                   required>
+
+            <textarea name="description"
+                      class="form-control mb-3"
+                      required>{{ project.description }}</textarea>
+
+            <!-- CATEGORY -->
+
+            <select name="category"
+                    class="form-control mb-3"
+                    required>
+
+                <option {% if project.category == 'AI/ML' %}selected{% endif %}>
+                    AI/ML
+                </option>
+
+                <option {% if project.category == 'Python' %}selected{% endif %}>
+                    Python
+                </option>
+
+                <option {% if project.category == '.NET' %}selected{% endif %}>
+                    .NET
+                </option>
+
+                <option {% if project.category == 'Cyber Security' %}selected{% endif %}>
+                    Cyber Security
+                </option>
+
+                <option {% if project.category == 'Unity' %}selected{% endif %}>
+                    Unity
+                </option>
+
+                <option {% if project.category == 'Web Development' %}selected{% endif %}>
+                    Web Development
+                </option>
+
+            </select>
+
+            <input type="text"
+                   name="tech_stack"
+                   class="form-control mb-3"
+                   value="{{ project.tech_stack }}"
+                   required>
+
+            <input type="number"
+                   name="price"
+                   class="form-control mb-3"
+                   value="{{ project.price }}"
+                   required>
+
+            <input type="file"
+                   name="image"
+                   class="form-control mb-3"
+                   required>
+
+            <button class="btn btn-success">
+                Update Project
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
