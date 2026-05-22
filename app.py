@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, session
-import mysql.connector
 from werkzeug.utils import secure_filename
 import os
 
@@ -19,14 +18,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # MYSQL CONNECTION
 # =========================
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="project_store"
+import sqlite3
+db = sqlite3.connect(
+    "database.db",
+    check_same_thread=False
 )
+db.row_factory = sqlite3.Row
 
-cursor = db.cursor(dictionary=True)
+cursor = db.cursor()
 
 # =========================
 # HOME PAGE + SEARCH
