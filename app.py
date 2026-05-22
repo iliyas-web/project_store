@@ -46,38 +46,28 @@ db.commit()
 @app.route('/')
 def home():
 
-    search = request.args.get('search')
-    category = request.args.get('category')
+    search = request.args.get('search', '')
+    category = request.args.get('category', 'All')
 
     sql = "SELECT * FROM projects WHERE 1=1"
     values = []
 
     if search:
-
-        sql += """
-        AND (
-            title LIKE ?
-            OR tech_stack LIKE ?
-        )
-        """
-
-        values.append(f"%{search}%")
-        values.append(f"%{search}%")
+        sql += " AND (title LIKE ? OR tech_stack LIKE ? OR description LIKE ?)"
+        values.extend([
+            f"%{search}%",
+            f"%{search}%",
+            f"%{search}%"
+        ])
 
     if category and category != "All":
-
-        sql += " AND category=%?"
-
+        sql += " AND category=?"
         values.append(category)
 
-    cursor.execute(sql, tuple(values))
-
+    cursor.execute(sql, values)
     projects = cursor.fetchall()
 
-    return render_template(
-        'index.html',
-        projects=projects
-    )
+    return render_template('index.html', projects=projects)
 
 # =========================
 # PROJECT DETAILS
