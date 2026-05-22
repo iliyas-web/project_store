@@ -56,8 +56,8 @@ def home():
 
         sql += """
         AND (
-            title LIKE %s
-            OR tech_stack LIKE %s
+            title LIKE ?
+            OR tech_stack LIKE ?
         )
         """
 
@@ -66,7 +66,7 @@ def home():
 
     if category and category != "All":
 
-        sql += " AND category=%s"
+        sql += " AND category=%?"
 
         values.append(category)
 
@@ -87,7 +87,7 @@ def home():
 def project_details(id):
 
     cursor.execute(
-        "SELECT * FROM projects WHERE id=%s",
+        "SELECT * FROM projects WHERE id=?",
         (id,)
     )
 
@@ -168,7 +168,7 @@ def admin():
             price,
             image
         )
-        VALUES(%s,%s,%s,%s,%s,%s)
+        VALUES(?,?,?,?,?,?)
         """
 
         values = (
@@ -204,7 +204,7 @@ def delete_project(id):
         return redirect('/login')
 
     cursor.execute(
-        "DELETE FROM projects WHERE id=%s",
+        "DELETE FROM projects WHERE id=?",
         (id,)
     )
 
@@ -223,7 +223,7 @@ def edit_project(id):
         return redirect('/login')
 
     cursor.execute(
-        "SELECT * FROM projects WHERE id=%s",
+        "SELECT * FROM projects WHERE id=?",
         (id,)
     )
 
@@ -251,13 +251,13 @@ def edit_project(id):
         sql = """
         UPDATE projects
         SET
-            title=%s,
-            description=%s,
-            category=%s,
-            tech_stack=%s,
-            price=%s,
-            image=%s
-        WHERE id=%s
+            title=?,
+            description=?,
+            category=?,
+            tech_stack=?,
+            price=?,
+            image=?
+        WHERE id=?
         """
 
         values = (
