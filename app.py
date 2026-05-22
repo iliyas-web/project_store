@@ -26,7 +26,19 @@ db = sqlite3.connect(
 db.row_factory = sqlite3.Row
 
 cursor = db.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS projects(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    description TEXT,
+    category TEXT,
+    tech_stack TEXT,
+    price INTEGER,
+    image TEXT
+)
+""")
 
+db.commit()
 # =========================
 # HOME PAGE + SEARCH
 # =========================
