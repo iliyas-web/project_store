@@ -1,4 +1,4 @@
-Flash
+Flask
 mysql-connector-python
 gunicorn
 werkzeug
